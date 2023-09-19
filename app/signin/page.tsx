@@ -1,11 +1,19 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BiLogoGoogle } from 'react-icons/bi'
-import { signIn} from 'next-auth/react'
+import { signIn, useSession} from 'next-auth/react'
 import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 const page = () => {
+   const session = useSession()
+   const router = useRouter()
+   useEffect(()=>{
+      if (session.data?.user) {
+         router.push('/')
+      }
+   },[session])
    const socialAction = (action: string) => {
 
       signIn(action, { redirect: false })
@@ -20,10 +28,12 @@ const page = () => {
          })
    };
   return (
+   <div className='w-full h-full flex justify-center items-center'>
      <Button onClick={() => socialAction("google")}>
       <BiLogoGoogle />
       Sign In
     </Button>
+   </div>
   )
 }
 
