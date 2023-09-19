@@ -30,11 +30,11 @@ export const CategoriesClient: React.FC<CategoriesClientProps> = ({
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Button>
       </div>
-      <Separator />
+      {/* <Separator />
       <DataTable searchKey="name" columns={columns} data={data} />
       <Heading title="API" description="API Calls for Categories" />
       <Separator />
-      <ApiList entityName="categories" entityIdName="categoryId" />
+      <ApiList entityName="categories" entityIdName="categoryId" /> */}
     </>
   );
 };
