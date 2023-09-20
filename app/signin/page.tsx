@@ -10,7 +10,7 @@ const page = () => {
    const session = useSession()
    const router = useRouter()
    useEffect(()=>{
-      if (session.data?.user && session.data.user.email == 'leocode09@gmail.com') {
+      if (session.data?.user && session.data.user.email == 'dynamiccode00@gmail.com') {
          router.push('/')
       }
    },[session])

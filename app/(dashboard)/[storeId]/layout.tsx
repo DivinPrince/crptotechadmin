@@ -17,7 +17,7 @@ export default async function DashboardLayout({
   if (!session?.user) {
     redirect('/signin');
   }
-  if (session.user.email !== 'leocode09@gmail.com') {
+  if (session.user.email !== 'dynamiccode00@gmail.com') {
     redirect('/signin');
   }
 

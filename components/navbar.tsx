@@ -27,9 +27,13 @@ const Navbar = () => {
                 <AvatarImage src={session?.data?.user?.image as string} />
                 <AvatarFallback>{session.data?.user?.name}</AvatarFallback>
               </Avatar></HoverCardTrigger>
-              <HoverCardContent>
-                <Button onClick={()=>{signOut()}}>Sign Out</Button>
+              <HoverCardContent className="flex flex-col gap-2 items-center">
+                <Avatar>
+                  <AvatarImage src={session?.data?.user?.image as string} />
+                  <AvatarFallback>{session.data?.user?.name}</AvatarFallback>
+                </Avatar>
                 <h1>{session.data?.user?.name}</h1>
+                <Button onClick={()=>{signOut()}} className="w-full rounded-full">Sign Out</Button>
               </HoverCardContent>
             </HoverCard>
 

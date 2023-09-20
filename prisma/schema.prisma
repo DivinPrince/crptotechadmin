@@ -52,9 +52,9 @@ model Product {
   isFeatured Boolean     @default(false)
   isArchived Boolean     @default(false)
   sizeId     String      @db.ObjectId
-  size       Size        @relation(fields: [sizeId], references: [id])
+  size       Size?        @relation(fields: [sizeId], references: [id])
   colorId    String      @db.ObjectId
-  color      Color       @relation(fields: [colorId], references: [id])
+  color      Color?       @relation(fields: [colorId], references: [id])
   images     Image[] // Relation to Image model
   orderItems OrderItem[] // Relation to Order model
   createdAt  DateTime    @default(now())
