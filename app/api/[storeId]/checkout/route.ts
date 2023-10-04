@@ -58,11 +58,6 @@ export async function POST(
       },
     },
   });
-
-  const data = {
-    100,
-    order.phone,
-  };
   const momoResponse = await axios({
     method: "post",
     url: momoRequestToPayUrl,
@@ -70,7 +65,6 @@ export async function POST(
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
     },
-    data,
   });
 
   return NextResponse.json(order);
