@@ -41,12 +41,22 @@ export async function POST(
     },
   });
 
+  const district = await prismadb.district.findFirst({
+    where:{
+      id: info.district
+    }
+  })
+
+  if (!district) {
+    return new NextResponse('')
+  }
+
   const order = await prismadb.order.create({
     data: {
       storeId: params.storeId,
       isPaid: false,
       phone: info.phoneNumber,
-      district: info.district,
+      districtId: district.id,
       orderItems: {
         create: productIds.map((productId: string) => ({
           product: {
