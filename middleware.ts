@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 const allowedOrigins =
   process.env.NODE_ENV === "production"
     ? ["https://www.crptotech.com"]
-    : ["http://localhost: 3001"];
+    : ["http://localhost:3001"];
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
 const origin = request.headers.get('origin');
