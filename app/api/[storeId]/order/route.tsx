@@ -1,15 +1,6 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "https://crptotech.com",
-  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization, Content-Length, X-Requested-With",
-  "Access-Control-Allow-Credentials": "true"
-};
-export async function OPTIONS() {
-  return NextResponse.json({}, { headers: corsHeaders });
-}
+import { json } from "stream/consumers";
 
 export async function POST(
   req: Request,
@@ -17,6 +8,7 @@ export async function POST(
 ) {
   
   try {
+    const origin = req.headers.get('origin');
     const body = await req.json();
 
     const { productIds, info } = body
@@ -59,7 +51,12 @@ export async function POST(
         },
       },
     });
-    return NextResponse.json(order);
+    return new NextResponse(JSON.stringify(order),{
+      headers: {
+        'Access-Control-Allow-Origin': origin || '*',
+        'Content-Type': 'application/json',
+      }
+    })
   } catch (error) {
     console.log('[ORDER_ERR]', error);
     return new NextResponse("Internal error", { status: 500 });
