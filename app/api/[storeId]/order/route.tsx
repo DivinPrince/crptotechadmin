@@ -7,7 +7,8 @@ export async function POST(
 ) {
   const { productIds, info } = await req.json();
 
-  if (!productIds || productIds.length === 0) {
+  try {
+    if (!productIds || productIds.length === 0) {
     return new NextResponse("Product ids are required", { status: 400 });
   }
 
@@ -47,4 +48,7 @@ export async function POST(
     },
   });
   return NextResponse.json(order);
+  } catch (error) {
+    console.log(error);   
+  }
 }
