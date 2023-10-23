@@ -4,6 +4,8 @@ import prismadb from "@/lib/prismadb";
 const corsHeaders = {
   "Access-Control-Allow-Origin": "https://crptotech.com",
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization, Content-Length, X-Requested-With",
+  "Access-Control-Allow-Credentials": "true"
 };
 export async function OPTIONS() {
   return NextResponse.json({}, { headers: corsHeaders });
