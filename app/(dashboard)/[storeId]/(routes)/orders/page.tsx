@@ -29,7 +29,7 @@ const OrdersPage = async ({
     }
   });
 
-  const formattedOrders: OrderColumn[] = orders.map((item) => ({
+  const formattedOrders: OrderColumn[] = orders.map((item: { id: any; phone: any; district: { name: any; }; orderItems: any[]; isPaid: any; createdAt: number | Date; }) => ({
     id: item.id,
     phone: item.phone,
     district: item.district.name,

@@ -19,7 +19,7 @@ const DistrictPage = async ({
     }
   });
 
-  const formattedDistrict: DistrictColumn[] = district.map((item) => ({
+  const formattedDistrict: DistrictColumn[] = district.map((item: { id: any; name: any; createdAt: number | Date; }) => ({
     id: item.id,
     name: item.name,
     createdAt: format(item.createdAt, 'MMMM do, yyyy'),
