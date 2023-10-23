@@ -53,7 +53,7 @@ export async function POST(
     });
     return new NextResponse(JSON.stringify(order),{
       headers: {
-        'Access-Control-Allow-Origin': origin || '*',
+        "Access-Control-Allow-Origin": origin || '*',
         'Content-Type': 'application/json',
       }
     })
