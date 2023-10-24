@@ -24,7 +24,7 @@ export async function POST(
 
     const district = await prismadb.district.findFirst({
       where: {
-        id: info.district,
+        name: info.district,
       },
     });
 
