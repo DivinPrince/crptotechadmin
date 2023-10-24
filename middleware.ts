@@ -13,6 +13,7 @@ const origin = request.headers.get('origin');
       statusText: "Bad Request",
       headers: {
         "Content-Type": "text/plain",
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
       },
     });
   }
