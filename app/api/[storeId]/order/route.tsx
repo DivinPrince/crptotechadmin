@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
-import { json } from "stream/consumers";
 
 export async function POST(
   req: Request,

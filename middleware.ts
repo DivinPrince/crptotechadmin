@@ -5,7 +5,7 @@ const allowedOrigins =
     ? ["https://www.crptotech.com"]
     : ["http://localhost:3001"];
 // This function can be marked `async` if using `await` inside
-export function middleware(request: NextRequest) {
+export function middleware(request: Request) {
 const origin = request.headers.get('origin');
   if (origin && !allowedOrigins.includes(origin)) {
     return new NextResponse(null, {
