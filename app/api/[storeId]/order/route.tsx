@@ -1,6 +1,16 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
+export async function OPTIONS() {
+  return NextResponse.json({}, { headers: corsHeaders });
+}
+
 export async function POST(
   req: Request,
   { params }: { params: { storeId: string } }
@@ -51,10 +61,7 @@ export async function POST(
       },
     });
     return new NextResponse(JSON.stringify(order),{
-      headers: {
-        "Access-Control-Allow-Origin": origin || '*',
-        'Content-Type': 'application/json',
-      }
+      headers: corsHeaders
     })
   } catch (error) {
     console.log('[ORDER_ERR]', error);
