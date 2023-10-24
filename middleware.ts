@@ -9,7 +9,7 @@ export function middleware(request: Request) {
 const origin = request.headers.get('origin');
   if (origin && !allowedOrigins.includes(origin)) {
     return new NextResponse(null, {
-      status: 400,
+      status: 405,
       statusText: "Bad Request",
       headers: {
         "Content-Type": "text/plain",
