@@ -42,7 +42,7 @@ export async function POST(
       districtId = newdistrict.id;
     }
 
-    if (!district) {
+    if (!districtId) {
       return new NextResponse("district is required", { status: 403 });
     }
 
