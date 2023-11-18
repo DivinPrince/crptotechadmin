@@ -21,8 +21,7 @@ export async function POST(
   const { productIds,info } = await req.json();
   const momoHost = "sandbox.momodeveloper.mtn.com";
   const momoTokenUrl = `https://${momoHost}/collection/token`;
-  const momoRequestToPayUrl = `https://${momoHost}/collection/
-/v1_0/requesttopay`;
+  const momoRequestToPayUrl = `https://${momoHost}/collection/v1_0/requesttopay`;
   if (!productIds || productIds.length === 0) {
     return new NextResponse("Product ids are required", { status: 400 });
   }
