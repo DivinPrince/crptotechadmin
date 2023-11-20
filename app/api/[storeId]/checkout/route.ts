@@ -19,7 +19,7 @@ export async function POST(
   req: Request,
   { params }: { params: { storeId: string } }
 ) {
-  const { productIds,info } = await req.json();
+  const { productIds, info } = await req.json();
   const momoHost = "sandbox.momodeveloper.mtn.com";
   const momoTokenUrl = `https://${momoHost}/collection/token`;
   const momoRequestToPayUrl = `https://${momoHost}/collection/v1_0/requesttopay`;
@@ -42,7 +42,7 @@ export async function POST(
   });
 
   const district = await prismadb.district.findFirst({
-    where:{
+    where: {
       id: info.district
     }
   })
@@ -67,49 +67,35 @@ export async function POST(
         })),
       },
     },
-    include:{
+    include: {
       orderItems: true
     }
   });
-  
+
   const body = {
     amount: info.total,
     currency: 'EUR',
     externalId: 'c1b85ecd16ac42e89cc7a7058ee8c11f',
     payer: {
-        partyIdType: 'MSISDN',
-        partyId: info.phone,
+      partyIdType: 'MSISDN',
+      partyId: info.phone,
     },
     payerMessage: 'Payment for order',
     payeeNote: 'Payment for order',
-};
-
-// const momoResponse = await axios.post(
-//     momoRequestToPayUrl,
-//     body,
-//     {
-//         headers: {
-//             'X-Reference-Id': 'c1b85ecd16ac42e89cc7a7058ee8c11f',
-//             'X-Target-Environment': 'sandbox',
-//             'Ocp-Apim-Subscription-Key': 'cd3f65786cc14b19866be08c3be23135',
-//             Authorization: `Bearer ${momoToken}`,
-//             'Content-Type': 'application/json',
-//         },
-//     }
-// );
-const momoResponse = await axios({
-  method: 'post',
-  url: momoRequestToPayUrl,
-  headers: {
-    'Content-Type': 'application/json',
-    'Ocp-Apim-Subscription-Key': '5b158c87ce9b495fb64dcac1852d745b',
-    'X-Reference-Id': '123456789',
-    'X-Target-Environment': 'sandbox',
-    'X-Callback-Url': 'http://crptotech.com/callback',
-    'X-Callback-Host': 'http://crptotech.com',
-    Authorization: `Bearer ${momoToken}`,
-  },
-  data: body,
-});
+  }
+  const momoResponse = await axios({
+    method: 'post',
+    url: momoRequestToPayUrl,
+    headers: {
+      'Content-Type': 'application/json',
+      'Ocp-Apim-Subscription-Key': '5b158c87ce9b495fb64dcac1852d745b',
+      'X-Reference-Id': '123456789',
+      'X-Target-Environment': 'sandbox',
+      'X-Callback-Url': 'http://crptotech.com/callback',
+      'X-Callback-Host': 'http://crptotech.com',
+      Authorization: `Bearer ${momoToken}`,
+    },
+    data: body,
+  });
   return NextResponse.json({ momoResponse: momoResponse.data });
 }
