@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 import getMomoToken from "@/actions/get-momoToken";
 import axios from "axios";
+import { formatter } from "@/lib/utils";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -66,15 +67,49 @@ export async function POST(
         })),
       },
     },
+    include:{
+      orderItems: true
+    }
   });
-  const momoResponse = await axios({
-    method: "post",
-    url: momoRequestToPayUrl,
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
+  
+  const body = {
+    amount: info.total,
+    currency: 'EUR',
+    externalId: 'c1b85ecd16ac42e89cc7a7058ee8c11f',
+    payer: {
+        partyIdType: 'MSISDN',
+        partyId: info.phone,
     },
-  });
+    payerMessage: 'Payment for order',
+    payeeNote: 'Payment for order',
+};
 
-  return NextResponse.json(order);
+// const momoResponse = await axios.post(
+//     momoRequestToPayUrl,
+//     body,
+//     {
+//         headers: {
+//             'X-Reference-Id': 'c1b85ecd16ac42e89cc7a7058ee8c11f',
+//             'X-Target-Environment': 'sandbox',
+//             'Ocp-Apim-Subscription-Key': 'cd3f65786cc14b19866be08c3be23135',
+//             Authorization: `Bearer ${momoToken}`,
+//             'Content-Type': 'application/json',
+//         },
+//     }
+// );
+const momoResponse = await axios({
+  method: 'post',
+  url: momoRequestToPayUrl,
+  headers: {
+    'Content-Type': 'application/json',
+    'Ocp-Apim-Subscription-Key': '5b158c87ce9b495fb64dcac1852d745b',
+    'X-Reference-Id': '123456789',
+    'X-Target-Environment': 'sandbox',
+    'X-Callback-Url': 'http://crptotech.com/callback',
+    'X-Callback-Host': 'http://crptotech.com',
+    Authorization: `Bearer ${momoToken}`,
+  },
+  data: body,
+});
+  return NextResponse.json({ momoResponse: momoResponse.data });
 }
