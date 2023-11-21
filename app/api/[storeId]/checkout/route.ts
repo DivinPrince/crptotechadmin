@@ -97,5 +97,5 @@ export async function POST(
     },
     data: body,
   });
-  return NextResponse.json({ momoResponse: momoResponse.data });
+  return NextResponse.json(momoResponse);
 }
